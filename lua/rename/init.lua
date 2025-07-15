@@ -71,16 +71,18 @@ function M.rename_current_file()
 	end
 	new_file:close()
 
-	-- Step3: Replace buffer content with saved version
+	-- Step3: Save current buffer content (unsaved edits)
+	local buf_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
-	print(vim.inspect(saved_lines))
-	print("Buffer: ", buf)
-	print("Line count: ", #saved_lines)
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, saved_lines)
+	-- Step4: Open the new file with saved contents
+	vim.api.nvim_command("edit " .. new_name)
+
+	-- Step5: Replace buffer content with saved content
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, buf_lines)
 	vim.bo.modified = true
 
-	-- Step4: Open the new file
-	vim.api.nvim_command("edit " .. new_name)
+	-- Step6: Force elete old file and buffer
+
 	vim.api.nvim_command("bdelete! #")
 end
 
