@@ -72,6 +72,10 @@ function M.rename_current_file()
 	new_file:close()
 
 	-- Step3: Replace buffer content with saved version
+
+	print(vim.inspect(saved_lines))
+	print("Buffer: ", buf)
+	print("Line count: ", #saved_lines)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, saved_lines)
 	vim.bo.modified = true
 
