@@ -81,9 +81,11 @@ function M.rename_current_file()
 	vim.api.nvim_buf_set_lines(0, 0, -1, false, buf_lines)
 	vim.bo.modified = true
 
-	-- Step6: Force elete old file and buffer
-
+	-- Step6: Force delete old buffer
 	vim.api.nvim_command("bdelete! #")
+
+	-- Step7: delete old file
+	os.remove(old_name)
 end
 
 function M.setup()
