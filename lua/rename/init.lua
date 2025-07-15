@@ -55,7 +55,7 @@ function M.rename_current_file()
 	end
 
 	for line in f:lines() do
-		table.insert(saved_lines, loadstring)
+		table.insert(saved_lines, line)
 	end
 	f:close()
 
